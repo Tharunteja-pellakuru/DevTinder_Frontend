@@ -1,23 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/contants";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("teja@gmail.com");
   const [password, setPassword] = useState("Teja@1234");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.post(
-      "http://localhost:7777/login",
+      BASE_URL + "/login",
       { emailId, password },
       { withCredentials: true }
     );
-    dispatch(addUser(res.data.data));
+    dispatch(addUser(res?.data?.data));
+    navigate("/");
   };
+
   return (
     <div className="flex justify-center my-10">
       <div className="card card-border bg-base-300 w-96">

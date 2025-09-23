@@ -13,4 +13,7 @@
 - CORS - install cors in backend => added middleware to with configurations: orgin, credentials:true
 - Whenever you 're making an API call so pass axios => {withCredentials: true}
 - ConfigureStore => Provider => createSlice => add reducer to store
-- added redux devtools in chrome
+- Added redux devtools in chrome
+- Loggined and see whether the data is coming into the store or not
+- Refactored the code for constants
+- Athentication is added for the accessing routes
