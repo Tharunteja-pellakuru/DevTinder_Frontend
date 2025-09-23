@@ -17,3 +17,4 @@
 - Loggined and see whether the data is coming into the store or not
 - Refactored the code for constants
 - Athentication is added for the accessing routes
+- Logout feature

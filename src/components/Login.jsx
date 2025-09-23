@@ -9,18 +9,23 @@ const Login = () => {
   const [emailId, setEmailId] = useState("teja@gmail.com");
   const [password, setPassword] = useState("Teja@1234");
 
+  const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await axios.post(
-      BASE_URL + "/login",
-      { emailId, password },
-      { withCredentials: true }
-    );
-    dispatch(addUser(res?.data?.data));
-    navigate("/");
+  const handleSubmit = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/login",
+        { emailId, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res?.data?.data));
+      navigate("/");
+    } catch (err) {
+      setError(err?.response?.data || "Something went wrong");
+    }
   };
 
   return (
@@ -48,6 +53,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <p className="text-red-600">{error}</p>
           <div className="card-actions justify-center my-2">
             <button onClick={handleSubmit} className="btn btn-primary">
               Login
