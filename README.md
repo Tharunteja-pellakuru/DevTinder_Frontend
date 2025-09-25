@@ -18,3 +18,4 @@
 - Refactored the code for constants
 - Athentication is added for the accessing routes
 - Logout feature
+- Build the Usercard om the feed
