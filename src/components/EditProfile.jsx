@@ -34,18 +34,16 @@ const EditProfile = ({ user }) => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data.data));
-      setTimeout(() => {
-        setShowToast(!showToast);
-      });
-      clearTimeout(setTimeout(() => setShowToast(false), 2000));
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
     } catch (err) {
       setError(err.message || "Something went wrong");
     }
   };
   return (
     <div className="flex justify-center my-10">
-      <div className="flex justify-center mx-10">
-        <div className="card card-border bg-base-300 w-96">
+      <div className="flex justify-center m-4">
+        <div className="card card-border bg-base-300 w-90">
           <div className="card-body">
             <h1 className="text-xl font-bold text-center">Edit Profile</h1>
             <div className="my-1">
@@ -118,8 +116,11 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       </div>
-      <UserCard user={{ firstName, lastName, photoUrl, age, about, gender }} />
-      {setShowToast && (
+      <UserCard
+        user={{ firstName, lastName, photoUrl, age, about, gender }}
+        status={false}
+      />
+      {showToast && (
         <div className="toast toast-top toast-end my-20">
           <div className="alert alert-success">
             <span className="text-white">Profile Saved Successfully</span>

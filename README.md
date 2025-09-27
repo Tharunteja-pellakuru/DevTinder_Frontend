@@ -20,3 +20,6 @@
 - Logout feature
 - Build the Usercard om the feed
 - Edit Profile Feature is build
+- Connection Page --> See all connections
+- Requests Page --> See all Requests
+- Feature --> Accept/Reject connection request
