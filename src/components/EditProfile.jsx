@@ -2,6 +2,8 @@ import { useState } from "react";
 import UserCard from "./UserCard";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
@@ -11,9 +13,13 @@ const EditProfile = ({ user }) => {
   const [about, setAbout] = useState(user.about);
   const [gender, setGender] = useState(user.gender);
 
+  const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
 
+  const dispatch = useDispatch();
+
   const saveProfile = async () => {
+    setError("");
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
@@ -27,7 +33,11 @@ const EditProfile = ({ user }) => {
         },
         { withCredentials: true }
       );
-      console.log(res);
+      dispatch(addUser(res.data.data));
+      setTimeout(() => {
+        setShowToast(!showToast);
+      });
+      clearTimeout(setTimeout(() => setShowToast(false), 2000));
     } catch (err) {
       setError(err.message || "Something went wrong");
     }
@@ -109,6 +119,13 @@ const EditProfile = ({ user }) => {
         </div>
       </div>
       <UserCard user={{ firstName, lastName, photoUrl, age, about, gender }} />
+      {setShowToast && (
+        <div className="toast toast-top toast-end my-20">
+          <div className="alert alert-success">
+            <span className="text-white">Profile Saved Successfully</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

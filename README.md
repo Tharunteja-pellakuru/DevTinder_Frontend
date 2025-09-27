@@ -19,3 +19,4 @@
 - Athentication is added for the accessing routes
 - Logout feature
 - Build the Usercard om the feed
+- Edit Profile Feature is build
