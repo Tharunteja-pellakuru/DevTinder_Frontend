@@ -23,3 +23,5 @@
 - Connection Page --> See all connections
 - Requests Page --> See all Requests
 - Feature --> Accept/Reject connection request
+- Feature --> Interested/Rejected sending connnection request
+- Signup Feature is build

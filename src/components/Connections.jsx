@@ -1,18 +1,19 @@
 import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connections);
+  const user = useSelector((store) => store.user);
   const fetchConnections = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
       });
-      console.log(res.data);
+      console.log(user, res.data.data);
       dispatch(addConnections(res.data.data));
     } catch (err) {
       console.log(err.message);
@@ -20,8 +21,9 @@ const Connections = () => {
   };
 
   useEffect(() => {
+    if (!user || !user._id) return;
     fetchConnections();
-  }, []);
+  }, [user]);
 
   if (!connections)
     return (
@@ -55,7 +57,7 @@ const Connections = () => {
               {" "}
               {connection.firstName + " " + connection.lastName}
             </h1>
-            <h1 className="text-sm"> {connection.skills.join(", ")}</h1>
+            <h1 className="text-sm"> {connection.about}</h1>
           </div>
         </div>
       ))}

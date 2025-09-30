@@ -1,5 +1,27 @@
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUserFromFeed } from "../utils/feedSlice";
+
 const UserCard = ({ user, status }) => {
-  const { firstName, lastName, photoUrl, age, gender, about, skills } = user;
+  const { _id, firstName, lastName, photoUrl, age, gender, about, skills } =
+    user;
+  const dispatch = useDispatch();
+
+  const loggedInUser = useSelector((store) => store.user);
+
+  const handleRequest = async (type, id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/send/request/" + type + "/" + id,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeUserFromFeed(_id));
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <div className="flex m-4">
@@ -20,10 +42,16 @@ const UserCard = ({ user, status }) => {
           <p className="my-5 text-md text-justify">{about}</p>
           {status && (
             <div className="card-actions justify-center">
-              <button className="btn btn-error m-2 rounded-lg text-white">
+              <button
+                onClick={() => handleRequest("ignored", _id)}
+                className="btn btn-error m-2 rounded-lg text-white"
+              >
                 Ignored
               </button>
-              <button className="btn btn-success m-2 rounded-lg text-white">
+              <button
+                onClick={() => handleRequest("interested", _id)}
+                className="btn btn-success m-2 rounded-lg text-white"
+              >
                 Interested
               </button>
             </div>

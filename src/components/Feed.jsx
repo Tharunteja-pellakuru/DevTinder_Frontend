@@ -24,6 +24,20 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
+
+  if (!feed)
+    return (
+      <div className="flex flex-row justify-center my-10">
+        <h2> Loading.... </h2>
+      </div>
+    );
+
+  if (feed.length === 0)
+    return (
+      <div className="flex flex-row justify-center my-10">
+        <h2 className="text-xl"> No Feed </h2>
+      </div>
+    );
   return (
     feed && (
       <div className="flex justify-center my-10">

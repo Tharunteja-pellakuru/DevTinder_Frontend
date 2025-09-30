@@ -26,6 +26,7 @@ const Requests = () => {
         {},
         { withCredentials: true }
       );
+      console.log(user._id, _id);
       dispatch(removeRequest(_id));
     } catch (err) {
       console.log(err);
@@ -67,7 +68,7 @@ const Requests = () => {
               {" "}
               {request.firstName + " " + request.lastName}
             </h1>
-            <h1 className="text-sm italic"> {request.skills.join(", ")}</h1>
+            <h1 className="text-sm italic"> {request.about}</h1>
           </div>
           <div className="flex justify-center">
             <button

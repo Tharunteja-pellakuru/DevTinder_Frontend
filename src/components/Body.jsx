@@ -29,8 +29,11 @@ const Body = () => {
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    // Only fetch user if we are NOT on the login page
+    if (location.pathname !== "/login") {
+      fetchUser();
+    }
+  }, [location.pathname]);
 
   return (
     <div>
